@@ -1,0 +1,120 @@
+{% extends "base.html" %}                   <!--base.html을 상속받는다고 선언-->
+
+{% block title %}세바퀴{% endblock %}    <!--title 블록 재정의-->
+
+<!--정적 파일인 css 연결하기 위하여, staticfiles를 로드-->
+{% load staticfiles %}
+<!--extrastyle 블록을 재정의하여 추가적으로 home.css 연결-->
+{% block extrastyle %}{% static "css/home.css" %}
+{% endblock %}
+{% block content %}
+    <!--header부분-->
+<header>
+    <div class="carousel fade-carousel slide">
+    <!-- Overlay -->
+    <div class="overlay"></div>
+    <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+        <div class="item slides active">
+        <div class="slide-1"></div>
+        <div class="hero row justify-content-center">
+            <div class="col-offset-3 col-xs-6 col-sm-8 col-md-12">
+{#            <h3>Weak </h3><h3> things</h3><h3>united</h3><h3>become</h3><h3> strong.</h3> #}
+            <h3>Weak things united become strong.</h3>
+            </div><br />
+{#            <button class="btn btn-hero btn-lg col-10 col-lg-2 col-md-4 col-sm-5 col-lg-offset-4" role="button">#}
+{#                <img src="{% static 'img/quiz_emoz.png' %}" class="quiz_emo"/>&nbsp;&nbsp;QUIZ</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
+{#            <button class="btn btn-hero btn-lg col-10 col-lg-2 col-md-4 col-sm-5" role="button">#}
+{#                <img src="{% static 'img/game_emoz.png' %}" class="quiz_emo"/>&nbsp;&nbsp;GAME</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
+{#            <button class="btn btn-hero btn-lg col-10 col-lg-2 col-md-4 col-sm-5" role="button">#}
+{#                <img src="{% static 'img/giboo_emoz.png' %}" class="quiz_emo"/>&nbsp;DONATE</button>#}
+        {% if user.is_active %}
+            <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="location.href='{% url 'quiz:index' %}'">QUIZ</button>
+            <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="location.href='{% url 'plant:index' %}'">GAME</button>
+        {% else %}
+            <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="needLogin()">QUIZ</button>
+            <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="needLogin()">GAME</button>
+        {% endif %}
+            <button class="btn btn-outline-success col-8 col-md-2" role="button">DONATE</button>
+        </div>
+    </div>
+  </div>
+</div>
+</header>
+<!--content 블록 재정의-->
+<div id="content_home" class="mx-auto">     <!--content_home 영역 정의-->
+    <div class="text-center">
+        <br/><br/>
+    <section>
+        <h2 style="display:inline;">
+            세바퀴 Story
+        </h2> <br/><br/><br/><br/>
+            <b style="font-size:20px"><i>what's this site about?</i></b> <br/>
+        <hr align="center" style="border: solid 2px #99cc99; width:14%;"><br/><br/>
+
+        <div class="main2 row justify-content-center">
+            <div class="col-11 col-md-3 col-sm-4 order-1">
+            <img src="{% static 'img/main1.png' %}" class="main1"/>
+            <p>잊고 있었던 상식 얻기 <br/> <b>"상식을 얻자"</b></p><br/>
+        {% if user.is_active %}
+            <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'quiz:index' %}'">퀴즈</button>
+        {% else %}
+            <button type="button" class="btn btn-outline-success" onclick="needLogin()">퀴즈</button>
+        {% endif %}
+            </div>
+            <div class="col-11 col-md-3 col-sm-4 order-2">
+            <img src="{% static 'img/main2.png' %}" class="main1"/>
+            <p>작물 키우기를 통한 보상 받기<br/> <b>"씨앗을 얻자"</b></p>
+                <br/>
+        {% if user.is_active %}
+            <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'plant:index' %}'">게임</button>
+        {% else %}
+            <button type="button" class="btn btn-outline-success" onclick="needLogin()">게임</button>
+        {% endif %}
+            </div>
+            <div class="col-11 col-md-3 col-sm-4 order-3">
+            <img src="{% static 'img/main3.png' %}" class="main1"/>
+            <p>퀴즈 참여로 쉬운 기부하기 <br/> <b>"기부에 참여하자"</b></p><br/>
+            <button type="button" class="btn btn-outline-success">기부</button>
+            </div>
+        </div>
+    </section>
+
+</div>
+</div>
+
+<div id="content_home" class="mx-auto">
+
+<div class="text-center"><br/><br/><br/>
+<b style="font-size:20px"><i>This month's donation group</i></b> <br/>
+<hr align="center" style="border: solid 2px #99cc99; width:14%;"><br/><br/><br/><br/>
+
+<div class="card-deck">
+    <div class="card shadow">
+        <img class="card-img-top" src="static/img/Green.PNG" alt="Card image" style="width:100%">
+        <div class="card-body">
+            <h4 class="card-title">사단법인 녹색연합</h4>
+            <p class="card-text d-sm-none d-md-block">자연생태보전운동, 생활환경운동 등</p>
+            <a href="{% url 'staff:donation' %}" class="more">자세히 보기</a>
+        </div>
+    </div>
+    <div class="card shadow">
+        <img class="card-img-top" src="static/img/jigoo1.png" alt="Card image" style="width:100%">
+        <div class="card-body">
+            <h4 class="card-title">지구보존운동연합회</h4>
+            <p class="card-text d-sm-none d-md-block">교육을 통한 생활환경지도사 양성</p>
+            <a href="{% url 'staff:donation' %}" class="more">자세히 보기</a>
+        </div>
+    </div>
+    <div class="card shadow">
+        <img class="card-img-top" src="static/img/yougi1.png" alt="Card image" style="width:100%">
+        <div class="card-body">
+            <h4 class="card-title">유기농 문화센터</h4>
+            <p class="card-text d-none d-sm-none d-md-block">친환경 유기 농산물의 소비촉진 사업</p>
+            <a href="{% url 'staff:donation' %}" class="more">자세히 보기</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock content %}

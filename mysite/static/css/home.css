@@ -1,0 +1,168 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+}
+/* 홈의 div 넓이 */
+#content_home {
+    width:90%;
+}
+
+section{
+    margin-top: 40px;
+}
+
+/* 홈화면에 있는 모든 버튼 */
+.btn, .btn-outline-success {
+    width: 150px;
+    height: 56px;
+    background-color:#99cc99;
+    color: #ffffff;
+    border: none;
+    font-size: large;
+    margin: 10px;
+}
+
+/***************************************/
+/*   Overlay 히어로 배경 사진 어둡게   */
+/***************************************/
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #080d15;
+    opacity: .4;
+}
+/********************************/
+/*          Hero Headers        */
+/********************************/
+.hero {
+    position: absolute;
+    width: 200px;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.75);
+      -webkit-transform: translate3d(-50%,-50%,0);
+         -moz-transform: translate3d(-50%,-50%,0);
+          -ms-transform: translate3d(-50%,-50%,0);
+           -o-transform: translate3d(-50%,-50%,0);
+              transform: translate3d(-50%,-50%,0);
+}
+/* 히어로 문구 */
+.hero h3 {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 0;
+    font-family: "배달의민족 한나는 열한살";
+}
+
+.fade-carousel {
+    position: relative;
+    height: 100vh;
+    opacity: 1;
+}
+.fade-carousel .carousel-inner .item {
+    height: 100vh;
+}
+
+/* 배경사진 */
+.fade-carousel .slides .slide-1{
+  height: 100vh;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url('../img/headerHome5.PNG'); /*headerHome3, 4, 5 중 이미지 3개 뽑아놓음 3개중에 택하기*/
+
+  }
+
+/********************************/
+/*          세바퀴 Story        */
+/********************************/
+
+/* 히어로 아래 세바퀴 Story */
+h2 {
+    /*margin-left: 150px;*/
+    text-align: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bold;
+}
+/* 사진 */
+.main1 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    width: 80%;
+}
+/* 전체 div */
+.main2 {
+    color: black;
+    margin: 0 auto;
+}
+/* 동그라미 아래 글귀 */
+.main2 p {
+    display: inline-block;
+    font-size: 20px;
+}
+
+/********************************/
+/*             Card             */
+/********************************/
+/* 카드형 이미지부분 크기 */
+.card-img-top {
+    width: 100%;
+    height: 30vw;
+    /*display: block;*/
+    object-fit: cover;
+}
+/* 기부단체 설명 */
+.card-text{
+    font-size: 15px;
+}
+/* 자세히 보기 */
+.more{
+    font-size: 15px;
+}
+/********************************/
+/*          Custom Buttons      */
+/********************************/
+
+/* 히어로 버튼의 사진있을 때 현재 사진 지운 상태 */
+/*.btn.btn-lg{*/
+    /*padding: 10px 100px;*/
+    /*font-size: 20px;*/
+/*}*/
+/* 히어로 버튼의 사진 현재 사진없는 상태*/
+/*.quiz_emo {*/
+    /*margin-left: -60px;*/
+    /*width: 50px;*/
+    /*height: 50px;*/
+/*}*/
+
+/* 버튼 부트스트랩으로 해서 필요없음 */
+/*.btn.btn-hero,*/
+/*.btn.btn-hero:hover,*/
+/*.btn.btn-hero:focus {*/
+    /*color: #ffffff;*/
+    /*background-color: rgb(183, 202, 121);*/
+    /*border-color: rgb(183, 202, 121);*/
+    /*outline: none;*/
+    /*!*margin: 100px auto;*!*/
+/*}*/
+
+
+/**************************************************/
+/* Media Queries ( 화면 사이즈별 세부 조절 )      */
+/**************************************************/
+/* 컴화면 */
+@media screen and (min-width: 700px){
+    .hero { width: 90%; }
+    .hero h3 { margin: 0 0 20px 120px;}
+}
+/* 폰화면 */
+@media screen and (max-width: 500px){
+    .hero{ margin-left: 10px; }
+    .hero h3 { font-size: 40px;}
+    .card-img-top { height: 70vw; }
+}

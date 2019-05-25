@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/login_forms.css" %}{% endblock %}
+
+{% block title %}세바퀴{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+{% endblock css %}
+
+{% block content %}<br/><br/><br/><br/>
+<div class="panel panel-default registration">
+    <div class="panel-heading">
+        <h1 class="centered">회원가입</h1><br/>
+    </div>
+    <div class="panel-body">
+        <form action="." method="post">
+{#            보안을 위해 써주는 난수 발생기, 난수를 발생시켜 제대로 된 입력인지 확인합니다.#}
+{#            POST 와 붙어다녀  그 아래에 적어주면 보안 상의 문제를 해결할 수 있습니다.#}
+            {% csrf_token %}
+            <div class="form-group">
+                {% for field in form %}
+                {% if field.label == '프로필 사진'%}
+                    <label for="id_{{ field.html_name}}">{{ field.label }}</label>
+                {% else %}
+                    <label for="id_{{ field.html_name}}">{{ field.label }} *</label>
+                {% endif %}
+                <input name="{{ field.html_name }}" id="{{ field.id_for_label }}" class="form-control" type="{{ field.field.widget.input_type }}" value="{{ field.value|default_if_none:'' }}">
+                {{ field.errors }}
+                    <br/>
+                {% endfor %}
+            <p>*이 있는 항목은 필수 항목입니다.</p>
+            </div>
+            <div class="form-actions">
+{#                {% if user.profile == None %}#}
+{#                    <img src="../../../mysite/static/img/call.png" />#}
+{#                {% else %}#}
+{#                    <img src="user.profile"/>#}
+{#                {% endif %}#}
+                <button class="btn btn-primary btn-large" type="submit">가입하기</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
