@@ -1,0 +1,13 @@
+span {
+    color: #6c6c6c;
+}
+ul.pagination {
+    text-align: center;
+}
+table {
+    table-layout: fixed;
+}
+/*페이지네이션 버튼*/
+a.page-link:hover {
+    color: #6c6c6c;
+}

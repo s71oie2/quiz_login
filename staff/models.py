@@ -1,9 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
-# --------------------------------------------추가 시작-------------------------------------------------------
-from django_summernote import models as summer_model
-from django_summernote import fields as summer_fields
 class Board(models.Model):  # 게시판(댓글 기능 없는 공지사항 게시용)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE,

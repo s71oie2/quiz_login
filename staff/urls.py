@@ -10,5 +10,4 @@ urlpatterns = [
     path('board/<int:pk>/edit/', views.post_edit, name='board_edit'),
     path('board/<int:pk>/remove/', views.post_remove, name='board_remove'),
     path('donation/', views.DonationView.as_view(), name='donation'),
-
 ]

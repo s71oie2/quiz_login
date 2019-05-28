@@ -35,8 +35,7 @@
                 </a>
             </td>
             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.user }}</td>
-{#    ======================================================= 간단내용 지움 조회수 추가 조회수 아이콘 추가해야함=======================================================      #}
-             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.date }}</td>
+             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.date|date:"Y년 M d일" }}</td>
              <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none" style="text-align: right">{{ post.hits }}&nbsp;<img src="{% static 'img/eye.png' %}" class="list_eye_icon"/></td>
 {#             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.updated }}</td>#}
 {#             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.tagged }}</td>#}

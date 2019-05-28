@@ -25,8 +25,8 @@
 {#        </thead>#}
         <tbody>
         <tr>
-            <td style="font-size: 30px">{{ post.title }}</td>
-            <td style="vertical-align: bottom">{{ post.date }}</td>
+            <td style="font-size: 30px; width: 80%">{{ post.title }}</td>
+            <td style="vertical-align: bottom">{{ post.date|date:"Y년 M d일" }}</td>
             <td style="vertical-align: bottom">{{ post.update_counter}}</td>
         </tr>
         <tr>
@@ -39,32 +39,30 @@
 {#  페이지네이션  #}
 <div class="notice">
     <dl class="noticePrev">
+        {% if object.get_newer_board %}
         <dt style="display: inline-block">
             <span><img src="{% static 'img/staff_top.PNG' %}" class="list_top"/></span>
         </dt>
         <dd style="display: inline-block">
-            {% if object.get_newer_board %}
+
                 <a href="{{ object.get_newer_board.get_absolute_url }}" title="다음글">
                     {{ object.get_newer_board.title }}
                 </a>
-            {% else %}
-                끝
             {% endif %}
         </dd>
     </dl>
     <hr align="center" style="border: solid 0.8px #d9d9d9; width:100%;">
     <dl class="noticeNext">
+        {% if object.get_older_board %}
         <dt style="display: inline-block">
             <span><img src="{% static 'img/staff_bott.PNG' %}" class="list_top"/></span>
             <span class="down"></span>
         </dt>
         <dd style="display: inline-block">
-            {% if object.get_older_board %}
+
                 <a href="{{ object.get_older_board.get_absolute_url }}" title="이전글">
                     {{ object.get_older_board.title }}
                 </a>
-            {% else %}
-                첫 사진
             {% endif %}
         </dd>
     </dl>

@@ -5,7 +5,7 @@
 {#    위는 하드코딩된 url 아래처럼 쓰려면, urls.py에서 name을 설정해야 함 #}
 <br/><br/><br/><br/>
 
-<form style=" margin: 0 auto; width: 85%;" class="edit_form">
+<form style=" margin: 0 auto; width: 85%;" class="edit_form" method="post">{% csrf_token %}
     <a href="{% url 'staff:board_list' %}"><button type="button" class="btn btn-outline-success">공지사항 목록</button></a>
     <button type="submit" class="btn btn-outline-success save">저장</button>
     <table class="table">
