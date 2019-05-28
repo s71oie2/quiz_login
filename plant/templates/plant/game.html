@@ -1,0 +1,77 @@
+<!DOCTYPE html>     <!--HTML5 규약을 준수하는 파일-->
+<html lang="ko">    <!--언어는 한국어로 지정--><!---->
+
+<head>              <!--페이지 타이틀과 css 파일 2개를 연결-->
+<meta charset="UTF-8">
+<title>5조 과제</title>
+<script type="text/javascript">
+    function startGame() {
+      myGamePiece = new component(30, 30, "5조게임/관심.PNG", 10, 120, "image");
+
+      myGameArea.start();
+    }
+    var myGameArea =new draw();
+   function draw(){
+        //이미지 객체 생성
+        var imgClo = new Image();
+
+        //페이지 로드후 이미지가 로드 되었을 때 이미지 출력
+        imgClo.addEventListener('load', function(){
+            //로드된 이미지를 캔버스에 출력
+            var ctx = document.getElementById('canvas').getContext("2d");
+
+            //canvas.drawImage() 함수를 사용하여 이미지 출력
+            //drawImage ( image sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+            ctx.drawImage( imgClo , 0, 0);
+
+            ctx.fillStyle = "rgb(200,0,0)";
+            ctx.fillRect (20, 10, 850, 50);
+
+        },false);
+
+        //이미지 경로 설정
+        imgClo.src="5조이미지/게임-배경(흙포함).PNG";
+
+   }
+
+   function component(width, height, color, x, y, type) {
+      this.type = type;
+      if (type == "image") {
+        this.image = new Image();
+        this.image.src = color;
+      }
+      this.width = width;
+      this.height = height;
+      this.speedX = 0;
+      this.speedY = 0;
+      this.x = x;
+      this.y = y;
+      this.update = function() {
+        ctx = myGameArea.context;
+        if (type == "image") {
+          ctx.drawImage(this.image,
+            this.x,
+            this.y,
+            this.width, this.height);
+        } else {
+          ctx.fillStyle = color;
+          ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+      }
+   }
+</script>
+<style type="text/css">
+  canvas { border: 1px solid black; }
+</style>
+</head>
+<body onload="draw()">
+
+    <div>
+        <h1>작물 키우기</h1>
+        <canvas id="canvas" width="891" height="617">
+{#          <img src="5조이미지/게임-배경(흙포함).PNG" height="617" width="891" alt=""/>#}
+        </canvas>
+    </div>
+
+</body>
+</html>

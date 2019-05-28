@@ -1,10 +1,12 @@
 from django.db import models
 from django.conf import settings
+from user.models import Item
 
 
 class QuizSub(models.Model):
     name = models.CharField('퀴즈주제', max_length=10)
     photo = models.ImageField('사진',upload_to='quiz/quizSub_img/', null=True)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='item', verbose_name='도구')  # 5.28
     def __str__(self):
         return self.name
     

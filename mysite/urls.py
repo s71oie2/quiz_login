@@ -4,8 +4,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from mysite.views import HomeView
 
+# from summernote import settings
+
 urlpatterns = [
   path('admin/', admin.site.urls),
+  path('summernote/', include('django_summernote.urls')), # 추가------------------------------------
   path('', HomeView.as_view(), name='home'),
   path('user/', include('user.urls'), name='user'),
   path('plant/', include('plant.urls'), name='plant'),

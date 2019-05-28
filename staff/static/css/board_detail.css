@@ -1,0 +1,11 @@
+.list_top {
+    width: 20px;
+    height:22px;
+}
+
+.dt {
+    display: inline-block;
+}
+.dd {
+    display: inline-block;
+}

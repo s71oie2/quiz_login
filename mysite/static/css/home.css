@@ -1,5 +1,4 @@
 body {
-    font-family: 'Noto Sans KR', sans-serif;
     font-size: 12px;
 }
 /* 홈의 div 넓이 */
@@ -12,15 +11,18 @@ section{
 }
 
 /* 홈화면에 있는 모든 버튼 */
-.btn, .btn-outline-success {
-    width: 150px;
+
+.btn {
+    width: 100%;
     height: 56px;
     background-color:#99cc99;
     color: #ffffff;
+    font-weight: bold;
     border: none;
-    font-size: large;
+    font-size: x-large;
     margin: 10px;
 }
+
 
 /***************************************/
 /*   Overlay 히어로 배경 사진 어둡게   */
@@ -31,7 +33,7 @@ section{
     height: 100%;
     z-index: 2;
     background-color: #080d15;
-    opacity: .4;
+    opacity: .55;
 }
 /********************************/
 /*          Hero Headers        */
@@ -55,8 +57,7 @@ section{
 .hero h3 {
     font-size: 60px;
     font-weight: bold;
-    margin: 0;
-    font-family: "배달의민족 한나는 열한살";
+    text-align: center;
 }
 
 .fade-carousel {
@@ -68,15 +69,16 @@ section{
     height: 100vh;
 }
 
-/* 배경사진 */
-.fade-carousel .slides .slide-1{
-  height: 100vh;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-image: url('../img/headerHome5.PNG'); /*headerHome3, 4, 5 중 이미지 3개 뽑아놓음 3개중에 택하기*/
+/* 배경사진 - 5.26(소이) 뭐가 문젠지 모르겠는데 서버에 올리면 이미지가 안 나타남. 장고 url식으로 하려고 home.html의 해당 클래스에
+style로 하드 코딩함*/
 
-  }
+/*.fade-carousel .slides .slide-1{*/
+  /*height: 100vh;*/
+  /*background-size: cover;*/
+  /*background-position: center center;*/
+  /*background-repeat: no-repeat;*/
+  /*background-image: url('../img/headerHome5.PNG'); !*headerHome3, 4, 5 중 이미지 3개 뽑아놓음 3개중에 택하기*!*/
+/*}*/
 
 /********************************/
 /*          세바퀴 Story        */
@@ -158,11 +160,11 @@ h2 {
 /* 컴화면 */
 @media screen and (min-width: 700px){
     .hero { width: 90%; }
-    .hero h3 { margin: 0 0 20px 120px;}
+    .hero h3 { text-align: center;}
 }
 /* 폰화면 */
 @media screen and (max-width: 500px){
     .hero{ margin-left: 10px; }
-    .hero h3 { font-size: 40px;}
+    .hero h3 { font-size: 40px; text-align: center;}
     .card-img-top { height: 70vw; }
 }

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <h1>threewheel</h1>
+
+
+        <img src="{% static 'phd_shin.png' %}" alt="main logo image">
+        <h1>threewheel site</h1>
+
+
+    <hr/>
+    No &copy;! <img src="http://www.pngmart.com/files/8/Copyleft-PNG-Transparent-Picture.png" height="42" width="42" style="margin-bottom: -5px" />2019. threewheel.
+
+    {% block extra_body %}
+        <script src="{% static 'main.js' %}"></script>
+    {% endblock %} {# 자바스크립트 등을 위하여 #}
+
+
+{% endblock content %}

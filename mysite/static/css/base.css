@@ -5,7 +5,6 @@
 
 * { font-family: 'LotteMartDream', sans-serif; }
 body {
-    /*font-family: 'BBTreeGB', sans-serif;*/
     font-size: 16px;
     height: 1000px;
     -ms-user-select: none;
@@ -48,7 +47,7 @@ body {
 }
 
 .welcome a:link, .welcome a:visited {
-    color: #01a252;
+    color: #6c6c6c;
 }
 
 /* MENU */
@@ -235,3 +234,8 @@ section .section-title {
 }
 }
 
+
+/* summernote 이상한 팝업 없앰 */
+.note-popover.popover {
+    display: none;
+}

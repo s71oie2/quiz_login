@@ -1,0 +1,32 @@
+{% extends 'base.html' %}  {# '/blog/layout.html'로 하면 오류, .layout.html로 상대경로 지정방식 #}
+
+{% block content %}
+{#    <a href="/blog/">게시판 목록으로 돌아가기</a><br/><br/>#}
+{#    위는 하드코딩된 url 아래처럼 쓰려면, urls.py에서 name을 설정해야 함 #}
+<br/><br/><br/><br/>
+
+<form style=" margin: 0 auto; width: 85%;" class="edit_form">
+    <a href="{% url 'staff:board_list' %}"><button type="button" class="btn btn-outline-success">공지사항 목록</button></a>
+    <button type="submit" class="btn btn-outline-success save">저장</button>
+    <table class="table">
+        <thead>
+            <th>필드</th><th>내용</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>id</td><td>{{ form.id }}</td>
+        </tr>
+        <tr>
+            <td>게시자</td><td>{{ form.user }}</td>
+        </tr>
+        <tr>
+            <td>제목</td><td>{{ form.title }}</td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td>{{ form.content }}</td>
+        </tr>
+        </tbody>
+    </table><br/>
+</form>
+{% endblock %}

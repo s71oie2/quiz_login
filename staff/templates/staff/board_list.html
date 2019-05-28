@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/board_list.css" %}{% endblock %}
+{% block content %}
+<div style="width: 65%; margin: 0 auto;">
+<br/><br/><br/><br/><br /><br />
+    <h3><strong>공지사항</strong></h3>
+    <hr class="list-hr">
+    <table class="table">
+        <thead>
+{#            <th>id</th>#}
+{#            <th class="d-lg-table-cell d-md-table-cell d-sm-none d-none">게시자</th>#}
+{#            <th>제목</th>#}
+{#    ======================================================= 간단내용 지움 조회수 추가 =======================================================      #}
+{#            <th class="d-lg-table-cell d-md-table-cell d-sm-none d-none">조회수</th>#}
+    {#             <th>작성 일시</th>#}
+   {#           <th class="d-lg-table-cell d-md-table-cell d-sm-none d-none">수정 일시</th>#}
+        </thead>
+        <tbody>
+        {% for post in posts %}
+        <tr style="background-color:
+                {% ifchanged post.id %}
+                    {% cycle 'white' 'white' %}
+                {% else %}
+                    'gray'
+                {% endifchanged %}"
+        >
+            <td style="text-align: left">[공지사항]</td>
+            <td>
+{#                <a href="/blog/{{ post.pk }}">#}
+                <a href="{% url 'staff:board_detail' pk=post.pk %}">
+               {# <a href="{{ post.get_absolute_url }}">  redirect 모델 구현한 방법 #}
+                    {# href="blog/..."로 하면 오류!!! #}
+                    {{ post.title }}
+                </a>
+            </td>
+            <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.user }}</td>
+{#    ======================================================= 간단내용 지움 조회수 추가 조회수 아이콘 추가해야함=======================================================      #}
+             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.date }}</td>
+             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none" style="text-align: right">{{ post.hits }}&nbsp;<img src="{% static 'img/eye.png' %}" class="list_eye_icon"/></td>
+{#             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.updated }}</td>#}
+{#             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.tagged }}</td>#}
+        </tr>
+       {% endfor %}
+        </tbody>
+    </table>
+
+{# 페이지 번호 #}
+    {% if is_paginated %}
+    <hr>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center pagination-sm">
+            {% if page_obj.has_previous %}
+              {% if not search %}
+              <li class="page-item">
+                  <a class="page-link" href="{% url 'staff:board_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+              </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="{% url 'staff:board_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+              </li>
+              {% endif %}
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">이전</a>
+            </li>
+            {% endif %}
+            {% for object in page_obj.paginator.page_range %}
+                <li class="page-item"><a class="page-link" href="{% url 'staff:board_list' %}?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+              {% if not search %}
+              <li class="page-item">
+                  <a class="page-link" href="{% url 'staff:board_list' %}?page={{ page_obj.next_page_number }}">다음</a>
+              </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="{% url 'staff:board_list' %}?{{search}}&page={{ page_obj.next_page_number }}">Next</a>
+              </li>
+              {% endif %}
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+    <br/>
+</div>
+
+{% endblock %}

@@ -18,10 +18,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "css/base.css" %}{% endblock %}" />
 <link rel="stylesheet" type="text/css" href="{% block extrastyle %}{% endblock %}" />   <!--추가적인 css파일 불러오고 싶으면 사용. 현재는 비어있음-->
-{#<link rel="shortcut icon" href="{% static 'img/favi.ico' %}">#}
-{% block extra_body %}  {# 자바스크립트 등을 위하여 #}
-    <script src="{% static 'js/base.js' %}"></script>
+<link rel="shortcut icon" href="{% static 'img/icon.png' %}">
+{#==========================================추가시작 - 윗줄에 숏컷은 필요없는거아닌가????=====================================================================#}
+
+    <!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+{#======================= base.js 수정 ============================================================================================================#}
+{% block extra_body %}
+<script src="{% static 'js/base.js' %}"></script>
 {% endblock %}
+{#=====================================================================추가끝=====================================================================#}
+
 </head>
 
 <body>              <!--바디 영역은 4 영역(헤더/메뉴/콘텐츠/풋터)으로 구성-->
@@ -55,7 +64,7 @@
                         <a class="nav-link waves-effect waves-light" href="{% url 'staff:donation' %}">기부</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="{% url 'staff:board' %}">공지사항</a>
+                        <a class="nav-link waves-effect waves-light" href="{% url 'staff:board_list' %}">공지사항</a>
                     </li>
                     {# 관리자만 관리자메뉴가 보임 #}
                     {% if user.is_superuser %}
@@ -69,12 +78,12 @@
                     {% if user.is_active %}
                      <h4 class="welcome">
                         {#  프로필 사진 <img src="{{ user.get_profile }}" width="20px" height="20px">#}
-                        <strong>{% firstof user.get_short_name user.get_username %}</strong> 님 /
+                        <strong>{% firstof user %}</strong> 님 /
                                  <a href="{% url 'user:password_change' %}">비밀번호 변경</a> /
                                 <a href="{% url 'user:logout' %}">로그아웃</a>
                     </h4>
                     {% else %}
-                    <h4 class="welcome">익명의 사용자 님  /
+                    <h4 class="welcome">
                                 <a href="{% url 'user:login' %}">로그인</a> /
                                 <a href="{% url 'user:register' %}">회원가입</a>
                     </h4>

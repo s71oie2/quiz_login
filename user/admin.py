@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Rank, User
+from .models import Rank, User, Item, HaveItem
 
 @admin.register(Rank)
 class RankAdmin(admin.ModelAdmin):
@@ -38,3 +38,14 @@ class UserAdmin(admin.ModelAdmin):
     last_login_at.short_description = '최근로그인'
 
 
+# 5.28
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_display_links = ('name',)
+
+
+@admin.register(HaveItem)
+class HaveItemAdmin(admin.ModelAdmin):
+    list_display = ('item', 'user', 'item_count',)
+    list_display_links = ('item', 'user',)

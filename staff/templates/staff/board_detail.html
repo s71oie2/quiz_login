@@ -1,0 +1,78 @@
+{% extends 'base.html' %}  {# '/blog/layout.html'로 하면 오류, .layout.html로 상대경로 지정방식 #}
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/board_detail.css" %}{% endblock %}
+
+{% block content %}
+{#    <a href="/blog/">게시판 목록으로 돌아가기</a><br/><br/>#}
+{#    위는 하드코딩된 url 아래처럼 쓰려면, urls.py에서 name을 설정해야 함 #}
+<div style="width: 65%; margin: 0 auto;">
+<br/><br/><br/><br/>
+    <h2>&nbsp;</h2>
+    <h3><strong>공지사항</strong></h3>
+    <hr align="center" style="border: solid 2px #99cc99; width:100%;">
+
+<form style=" margin: 0 auto; width: 100%;">
+    {% if post.user == user %}
+        <a href="{% url 'staff:board_edit' pk=post.pk %}"><button type="button" class="btn btn-outline-success">수정</button></a>
+        <a href="{% url 'staff:board_remove' pk=post.pk %}" onclick="return confirm('삭제하시겠습니까?');">
+            <button type="button" class="btn btn-outline-success">삭제</button>
+        </a><br/><br/>
+    {% endif %}
+
+    <table class="table">
+{#        <thead>#}
+{#            <th>필드</th><th>내용</th>#}
+{#        </thead>#}
+        <tbody>
+        <tr>
+            <td style="font-size: 30px">{{ post.title }}</td>
+            <td style="vertical-align: bottom">{{ post.date }}</td>
+            <td style="vertical-align: bottom">{{ post.update_counter}}</td>
+        </tr>
+        <tr>
+            <td><textarea disabled id="summernote" class="d-none">{{ post.content }}</textarea></td><td></td><td></td>
+        </tr>
+       </tbody>
+    </table> <br/>
+</form>
+<hr align="center" style="border: solid 0.8px #d9d9d9; width:100%;">
+{#  페이지네이션  #}
+<div class="notice">
+    <dl class="noticePrev">
+        <dt style="display: inline-block">
+            <span><img src="{% static 'img/staff_top.PNG' %}" class="list_top"/></span>
+        </dt>
+        <dd style="display: inline-block">
+            {% if object.get_newer_board %}
+                <a href="{{ object.get_newer_board.get_absolute_url }}" title="다음글">
+                    {{ object.get_newer_board.title }}
+                </a>
+            {% else %}
+                끝
+            {% endif %}
+        </dd>
+    </dl>
+    <hr align="center" style="border: solid 0.8px #d9d9d9; width:100%;">
+    <dl class="noticeNext">
+        <dt style="display: inline-block">
+            <span><img src="{% static 'img/staff_bott.PNG' %}" class="list_top"/></span>
+            <span class="down"></span>
+        </dt>
+        <dd style="display: inline-block">
+            {% if object.get_older_board %}
+                <a href="{{ object.get_older_board.get_absolute_url }}" title="이전글">
+                    {{ object.get_older_board.title }}
+                </a>
+            {% else %}
+                첫 사진
+            {% endif %}
+        </dd>
+    </dl>
+    <hr align="center" style="border: solid 0.8px #d9d9d9; width:100%;">
+    <div align="center">
+    <br/>
+    <a href="{% url 'staff:board_list' %}"><button type="button" class="btn btn-outline-success">공지사항 목록</button></a>
+    </div>
+</div>
+</div>
+{% endblock %}
