@@ -62,10 +62,10 @@ class PlantState(models.Model):
 class Diary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='회원이름')
     seedState = models.ForeignKey(SeedState, on_delete=models.CASCADE, verbose_name='씨앗상태')
-    plantState = models.ForeignKey(PlantState, on_delete=models.CASCADE, verbose_name='작물상태')
+    # plantState = models.ForeignKey(PlantState, on_delete=models.CASCADE, verbose_name='작물상태')
     date = models.DateTimeField('일시', auto_now_add=True)
     exp = models.IntegerField('경험치', default=0, validators=[MinValueValidator(0), MaxValueValidator(600)])
-    donation = models.ForeignKey(DonationOrg, on_delete=models.CASCADE, verbose_name='기부단체')
+    # donation = models.ForeignKey(DonationOrg, on_delete=models.CASCADE, verbose_name='기부단체')
     # 외래키의 필드 불러와서 출력
 
     def __str__(self):

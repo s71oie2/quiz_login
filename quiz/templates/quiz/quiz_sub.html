@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}세바퀴{% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/quiz.css" %}{% endblock %}
+
+{% block content %}
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    {% for quizSub in quizSubs %}
+    <p>{{ quizSub.name }}</p>
+    <img src="{{ quizSub.photo.url }}" />
+    <p>{{ quizSub.photo }}</p>
+    <img src="{{ quizSub.item.url }}" />
+    <p>{{ quizSub.item }}</p>
+    {% endfor %}
+{% endblock %}

@@ -5,6 +5,14 @@
 <div style="width: 65%; margin: 0 auto;">
 <br/><br/><br/><br/><br /><br />
     <h3><strong>공지사항</strong></h3>
+    <form method="post">
+    <ul class="category">
+        <li><a href="{% url 'staff:board_list' %}">전체</a></li>
+        {% for category in categories %}
+            <li><a href="{% url 'staff:board_filter' pk=category.pk %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+    </form>
     <hr class="list-hr">
     <table class="table">
         <thead>
@@ -23,19 +31,18 @@
                     {% cycle 'white' 'white' %}
                 {% else %}
                     'gray'
-                {% endifchanged %}"
-        >
-            <td style="text-align: left">[공지사항]</td>
-            <td>
+                {% endifchanged %}">
+            <td style="text-align: left">[{{ post.category }}]</td>
+            <td style="width: 70%; text-align: left;">
 {#                <a href="/blog/{{ post.pk }}">#}
-                <a href="{% url 'staff:board_detail' pk=post.pk %}">
+                <a href="{% url 'staff:board_detail' pk=post.pk %}" style="font-size:20px;">
                {# <a href="{{ post.get_absolute_url }}">  redirect 모델 구현한 방법 #}
                     {# href="blog/..."로 하면 오류!!! #}
                     {{ post.title }}
                 </a>
             </td>
-            <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.user }}</td>
-             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.date|date:"Y년 M d일" }}</td>
+            <!--<td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.user }}</td>-->
+             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none" style="color:#6c6c6c;">{{ post.date|date:"Y년 M d일" }}</td>
              <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none" style="text-align: right">{{ post.hits }}&nbsp;<img src="{% static 'img/eye.png' %}" class="list_eye_icon"/></td>
 {#             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.updated }}</td>#}
 {#             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.tagged }}</td>#}
@@ -52,11 +59,11 @@
             {% if page_obj.has_previous %}
               {% if not search %}
               <li class="page-item">
-                  <a class="page-link" href="{% url 'staff:board_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                  <a class="page-link" href="{% url 'staff:board_list' %}?page={{ page_obj.previous_page_number }}" tabindex="-1">이전</a>
               </li>
               {% else %}
                 <li class="page-item">
-                  <a class="page-link" href="{% url 'staff:board_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+                  <a class="page-link" href="{% url 'staff:board_list' %}?{{search}}&page={{ page_obj.previous_page_number }}" tabindex="-1">이전</a></a>
               </li>
               {% endif %}
             {% else %}
@@ -74,7 +81,7 @@
               </li>
               {% else %}
                 <li class="page-item">
-                  <a class="page-link" href="{% url 'staff:board_list' %}?{{search}}&page={{ page_obj.next_page_number }}">Next</a>
+                  <a class="page-link" href="{% url 'staff:board_list' %}?{{search}}&page={{ page_obj.next_page_number }}">다음</a>
               </li>
               {% endif %}
             {% else %}

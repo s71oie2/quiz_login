@@ -1,3 +1,37 @@
-h1{
-    color: green;
+h2{
+    margin-top: -200px;
+    color: #94b24d;
+}
+h2, p {
+    text-align: center;
+}
+.jackmul_back {
+    position: center;
+    top: -50px;
+    bottom: 0;
+    height: 770px;
+    width: 1440px;
+    margin: auto;
+    text-align: center;
+}
+.ddang {
+    position: relative;
+    width: 100%;
+    top: 135px;
+    bottom: 0;
+}
+.jackmul {
+    position: relative;
+    top: 444px;
+    left: 90px;
+}
+.gunghumch {
+    position: relative;
+    top: -270px;
+}
+.btn {
+    vertical-align: middle;
+    horiz-align: right;
+    height: 60px;
+    width: 120px;
 }

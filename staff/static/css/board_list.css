@@ -9,6 +9,12 @@ table {
 }
 table td{
 }
+td a:link,td a:visited{
+    color: #000000;
+}
+td a:hover{
+    color: #01A252;
+}
 /*페이지네이션 버튼*/
 a.page-link:hover {
     color: #6c6c6c;
@@ -21,11 +27,15 @@ a.page-link:hover {
 .table td {
     text-align: center;
 }
-.table tr:hover{
-    color: #99cc99;
-}
+/*.table tr:hover{*/
+/*    color: #99cc99;*/
+/*}*/
 .list_eye_icon{
     width: 18px;
     height:24px;
     margin-top: -7px;
+}
+
+.qt:hover {
+    color: #01A252;
 }

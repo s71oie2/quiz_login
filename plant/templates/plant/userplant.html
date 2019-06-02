@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}세바퀴{% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/plant.css" %}{% endblock %}
+
+{% block content %}
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <h2><b>작물키우기</b></h2>
+    <p>자신만의 작물을 키워보세요.</p>
+    <hr style="width: 300px;height: 4px; background-color: #94b24d ">
+    <br /><br /><br /><br />
+    <div class="jackmul_back" style="background-color:#f6e8b1;">
+        <div class="jackmul" style="text-align: center;">
+            <form method="POST">{% csrf_token %}
+{#                {{ photo.id }}#}<img width="200px" src="{{ photo.photo.url }}" />
+                {{ form.exp }}
+                <button type="submit" class="btn btn-outline-success">성장</button>
+            </form>
+        </div>
+        <div class="gunghumch">
+            <img src="{% static 'img/bar.PNG' %}"/>
+        </div>
+        <div class="ddang">
+            <img src="{% static 'img/ddang.png' %}" class="ddang"/>
+        </div>
+    </div>
+
+
+{% endblock %}

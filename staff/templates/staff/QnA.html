@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/board_list.css" %}{% endblock %}
+{% block extra_body %}
+<script src="{% static 'js/QnA.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div style="width: 65%; margin: 0 auto;">
+<br/><br/><br/><br/><br /><br />
+    <h3><strong>QnA</strong></h3>
+    <a href="{% url 'staff:q_new' %}"><button type="button" class="btn btn-outline-success" style="float: right">질문쓰기</button></a><br/>
+    <hr class="list-hr">
+{# ----------------------------- 질문사항 리스트 및 디테일 ---------------------------#}
+    <table class="table">
+        {% for qna in qnas %}
+        <tr id="flip_{{ qna.id }}" style="background-color: #ffffff">
+            <td class="qt">{{ qna.title }}</td><td>{{ qna.user }}</td><td>{{ qna.date|date:"Y년 M d일" }}</td>
+        </tr>
+        <tr class="panel" style="display: none; background-color: #fafafa">
+            <td>{{ qna.question|safe }}</td>
+        {% if qna.user == user %}
+        <td></td>
+        <td style="vertical-align: middle">
+            <a href="{% url 'staff:q_edit' pk=qna.pk %}"><button type="button" class="btn btn-outline-success">수정</button></a>
+            <a href="{% url 'staff:qna_remove' pk=qna.pk %}" onclick="return confirm('삭제하시겠습니까?');">
+            <button type="button" class="btn btn-outline-success">삭제</button></a>
+        </td>
+        {% endif %}
+        </tr>
+{# ----------------------------- 답변이 없을 때 -------------------------------  #}
+        {% if qna.answer == None %}
+        <tr class="apanel" style="display: none; background-color: #99cc99">
+            {% if user.is_superuser %}
+            <td colspan="3"><a href="{% url 'staff:a_edit' pk=qna.pk %}"><button type="button" class="btn btn-outline-success">답변달기</button></a></td>
+            {% endif %}
+        </tr>
+{# ----------------------------- 답변이 있을 때 -------------------------------  #}
+        {% else %}
+        <tr class="apanel" style="display: none; background-color: #99cc99">
+            <td colspan="2">{{ qna.answer|safe }}</td>
+            {% if user.is_superuser %}
+            <td style="vertical-align: middle"><a href="{% url 'staff:a_edit' pk=qna.pk %}"><button type="button" class="btn btn-outline-success">수정</button></a></td>
+            {% endif %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    <br/>
+
+{# --------------------------------- 질문 수정 --------------------------------------- #}
+{% if qform %}
+    <form style=" margin: 0 auto; width: 85%;" class="edit_form" method="POST">{% csrf_token %}
+    <button type="submit" class="btn btn-outline-success save">저장</button>
+    <br/><br/>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>제목 : {{ qform.title }}</td>
+            </tr>
+            <tr>
+                <td>{{ qform.question }}</td>
+            </tr>
+            </tbody>
+        </table><br/>
+    </form>
+{% endif %}
+{# ---------------------------------- 답변 수정 --------------------------------------- #}
+{% if aform %}
+    <form style=" margin: 0 auto; width: 85%;" class="edit_form" method="POST">{% csrf_token %}
+    <button type="submit" class="btn btn-outline-success save">저장</button>
+    <br/><br/>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>{{ aform.answer }}</td>
+            </tr>
+            </tbody>
+        </table><br/>
+    </form>
+{% endif %}
+</div>
+
+{% endblock %}

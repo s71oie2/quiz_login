@@ -50,7 +50,7 @@
                         <a class="nav-link waves-effect waves-light" href="{% url 'quiz:index' %}">퀴즈</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="{% url 'plant:index' %}">작물</a>
+                        <a class="nav-link waves-effect waves-light" href="{% url 'plant:userplant' pk=user.pk%}">작물</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
@@ -65,6 +65,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link waves-effect waves-light" href="{% url 'staff:board_list' %}">공지사항</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="{% url 'staff:qna' %}">질문사항</a>
                     </li>
                     {# 관리자만 관리자메뉴가 보임 #}
                     {% if user.is_superuser %}

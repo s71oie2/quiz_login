@@ -5,5 +5,6 @@ from .views import *
 app_name = 'plant'
 
 urlpatterns = [
-    path('', PlantView.as_view(), name='index'),
+    path('', PlantView.as_view, name='index'),
+    path('<int:pk>',views.diaryview, name='userplant')
 ]

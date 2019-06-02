@@ -1,17 +1,38 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from user.models import User
+
+# 필터 기능을 위해 추가 --------------------------------------------------------------------------------
+# class MyModelManager(models.Manager):
+#     def get_queryset(self):
+#         return super(MyModelManager, self).get_queryset().filter(category_id=2)
+
+# 공지사항 분류
+class Category(models.Model):
+    name = models.CharField('분류', max_length=15)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '분류'
+        verbose_name_plural = '게시판 분류'
+
+
+# 공지사항
 class Board(models.Model):  # 게시판(댓글 기능 없는 공지사항 게시용)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE,
                              related_name='boards',
                              verbose_name='게시자')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='분류')
     title = models.CharField('제목', max_length=100)
     content = models.TextField('내용')
-    # content = summer_fields.SummernoteTextField('내용', default='')
     date = models.DateTimeField('작성일시', auto_now_add=True)
     hits = models.IntegerField('조회수', default=0)
-    # photo = models.ImageField('사진',upload_to='staff/board_img/', null=True, blank=True)  # media 폴더 밑에 staff/board_img/에 저장 (자동 생성)
+    # 필터 기능을 위해 추가 --------------------------------------------------------------------------------
+    # objects = MyModelManager()
 
     def short_content(self):  # 속성으로 존재하는 것처럼 만들기
         if self.content:
@@ -48,7 +69,21 @@ class Board(models.Model):  # 게시판(댓글 기능 없는 공지사항 게시
         verbose_name_plural = '관리자 게시판'
         ordering = ['-date']
 
-class DonationOrg(models.Model):  # 기부단체
+# 두번째 게시판
+class QnA(models.Model):
+    user = models.ForeignKey(User, verbose_name='질문자', on_delete=models.CASCADE)
+    title = models.CharField('제목', max_length=30)
+    question = models.TextField('질문')
+    answer = models.TextField('답변', null=True)
+    date = models.DateTimeField('작성일시', auto_now_add=True)
+
+    class Meta:
+        verbose_name = '질문'
+        verbose_name_plural = '질문 게시판'
+        ordering = ['-date']
+
+# 기부단체
+class DonationOrg(models.Model):
     name = models.CharField('기부단체명', max_length=20)
     desc = models.TextField('단체설명')
     photo = models.ImageField('사진',upload_to='staff/donation/')
