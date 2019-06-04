@@ -47,7 +47,7 @@
                 <ul class="navbar-nav mr-auto">
                 {% if user.is_active %}
                     <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="{% url 'quiz:index' %}">퀴즈</a>
+                        <a class="nav-link waves-effect waves-light" href="{% url 'quiz:quizSubs' %}">퀴즈</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link waves-effect waves-light" href="{% url 'plant:userplant' pk=user.pk%}">작물</a>

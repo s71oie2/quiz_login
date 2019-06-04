@@ -175,4 +175,3 @@ AUTH_USER_MODEL = 'user.User'
 SUMMERNOTE_CONFIG = {
     'attachment_filesize_limit': 1024*1024*10, # specify the file size
 }
-

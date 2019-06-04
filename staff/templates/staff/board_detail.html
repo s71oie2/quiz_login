@@ -27,7 +27,7 @@
         <tr>
             <td style="font-size: 30px; width: 80%">{{ post.title }}</td>
             <td style="vertical-align: bottom">{{ post.date|date:"Y년 M d일" }}</td>
-            <td style="vertical-align: bottom">{{ post.update_counter}}&nbsp;<img src="{% static 'img/eye.png' %}" class="list_eye_icon"/></td>
+            <td style="vertical-align: bottom">{{ post.hits }}&nbsp;<img src="{% static 'img/eye.png' %}" class="list_eye_icon"/></td>
         </tr>
         <tr>
             <td><textarea disabled id="summernote" class="d-none">{{ post.content }}</textarea></td><td></td><td></td>
@@ -43,9 +43,9 @@
             <span><img src="{% static 'img/staff_top.PNG' %}" class="list_top"/>&nbsp;</span>
         </dt>
         <dd style="display: inline-block">
-            {% if object.get_newer_board %}
-                <a href="{{ object.get_newer_board.get_absolute_url }}" title="다음글">
-                    {{ object.get_newer_board.title }}
+            {% if post.get_newer_board %}
+                <a href="{{ post.get_newer_board.get_absolute_url }}" title="다음글">
+                    {{ post.get_newer_board.title }}
                 </a>
             {% else %}
                 끝
@@ -59,9 +59,9 @@
             <span class="down"></span>
         </dt>
         <dd style="display: inline-block">
-            {% if object.get_older_board %}
-                <a href="{{ object.get_older_board.get_absolute_url }}" title="이전글">
-                    {{ object.get_older_board.title }}
+            {% if post.get_older_board %}
+                <a href="{{ post.get_older_board.get_absolute_url }}" title="이전글">
+                    {{ post.get_older_board.title }}
                 </a>
             {% else %}
                 처음

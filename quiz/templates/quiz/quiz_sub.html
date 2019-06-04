@@ -7,11 +7,19 @@
 
 {% block content %}
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br> <br> <br> <br>
+    <h2><b>퀴즈 주제 선택</b></h2>
+    <p>퀴즈를 맞추고 기부를 시작해보세요.</p>
+    <hr style="width: 300px;height: 4px; background-color: #01A252;">
+    <br><br>
+    <div class="mulum_icon">
+        <a href="#"><img src="{% static 'img/mulum.png' %}" class="mulum"/></a>
+    </div>
+
+    <form method="POST" class="juje_img">{% csrf_token %}
     {% for quizSub in quizSubs %}
-    <p>{{ quizSub.name }}</p>
-    <img src="{{ quizSub.photo.url }}" />
-    <p>{{ quizSub.photo }}</p>
-    <img src="{{ quizSub.item.url }}" />
-    <p>{{ quizSub.item }}</p>
+            <button type="submit" class="juje_but" name="q_sub{{ quizSub.id }}">{{ photo.id }}<img width="260px" src="{{ quizSub.photo.url }}"/> </button>
     {% endfor %}
+    </form>
+
 {% endblock %}

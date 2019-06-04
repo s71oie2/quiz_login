@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from django.utils import timezone
+
 from user.models import User
 
 # 필터 기능을 위해 추가 --------------------------------------------------------------------------------
@@ -57,12 +59,10 @@ class Board(models.Model):  # 게시판(댓글 기능 없는 공지사항 게시
         ).order_by('-date').first()
         return older_board
 
-    # 조회수
-    @property
-    def update_counter(self):
-        self.hits = self.hits + 1
-        self.save()
-        return self.hits
+    # # 조회수
+    # @property
+    # def update_counter(self):
+    #     return self.hits
 
     class Meta:
         verbose_name = '게시판'
@@ -74,6 +74,7 @@ class QnA(models.Model):
     user = models.ForeignKey(User, verbose_name='질문자', on_delete=models.CASCADE)
     title = models.CharField('제목', max_length=30)
     question = models.TextField('질문')
+    lock = models.BooleanField('비공개', default=False)
     answer = models.TextField('답변', null=True)
     date = models.DateTimeField('작성일시', auto_now_add=True)
 
@@ -102,5 +103,10 @@ class DonationOrg(models.Model):
         verbose_name = '기부단체'
         verbose_name_plural = '기부단체'
 
-
-
+# 조회수
+class HitCount(models.Model):
+    ip = models.CharField(max_length=15, default=None, null=True)  # ip 주소
+    post = models.ForeignKey(Board, default=None, null=True, on_delete=models.CASCADE)  # 게시글
+    date = models.DateField(auto_now_add=True, null=True, blank=True)  # 조회수가 올라갔던 날짜
+    
+    

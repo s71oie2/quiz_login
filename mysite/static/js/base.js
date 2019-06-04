@@ -2,7 +2,7 @@
 function needLogin() {
     var con_test = confirm("로그인이 필요합니다.");
     if(con_test){
-      location.href ="user/login"
+      location.href ='/user/login/'
     }
 }
 

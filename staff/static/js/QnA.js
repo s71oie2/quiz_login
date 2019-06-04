@@ -34,3 +34,10 @@ $(function(){
       $(this).next("tr.panel").next("tr.apanel").slideToggle("fast");
      });
 });
+// 로그인 알림창
+function needLogin() {
+    var con_test = confirm("로그인이 필요합니다.");
+    if(con_test){
+      location.href ='/user/login/'
+    }
+}

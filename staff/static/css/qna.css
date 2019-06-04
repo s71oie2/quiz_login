@@ -1,0 +1,62 @@
+span {
+    color: #6c6c6c;
+}
+ul.pagination {
+    text-align: center;
+}
+table {
+    table-layout: fixed;
+}
+table td{
+}
+td a:link,td a:visited{
+    color: #000000;
+}
+td a:hover{
+    color: #01A252;
+}
+.list-hr{
+    background-color: #99cc99;
+    border: 0;
+    height: 6px;
+    margin-top: 25px;  /* 6.2 소이 추가 */
+}
+td.qt{
+    width: 55%;
+}
+.table td {
+    text-align: center;
+    vertical-align: middle;  /* 6.2 소이 추가 */
+}
+.apanel {
+    background-color: #99cc99;
+}
+.apanel td{
+    text-align: left;
+}
+tr.panel td {
+    text-align: left;
+    vertical-align: middle;
+}
+.qt:hover {
+    color: #01A252;
+}
+a.page-link:hover {
+    color: #6c6c6c;
+}
+
+/* 6.2 소이 추가 */
+input#id_title {
+    width: 80%;
+}
+td.qt {
+    padding-left: 50px;
+}
+td p, .none_a a {
+    margin-left: 60px;
+    margin-bottom: 0;
+}
+.list_lock_icon{
+    height:20px;
+    margin-top: -7px;
+}

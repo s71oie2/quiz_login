@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}세바퀴{% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/quiz.css" %}{% endblock %}
+
+{% block content %}
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br> <br> <br> <br>
+    <h2><b>퀴즈</b></h2>
+    <hr style="width: 300px;height: 4px; background-color: #99cc99;">
+    <br/><br/>
+    <form method="POST">{% csrf_token %}
+        <div class="jackmul_back" style="background-color:#f6e8b1;"><br/>
+            <div class="pnum">
+                <img class="pnum1" src="{% static 'img/bar2.PNG' %}" />
+            </div ><br /><br />
+            <div class="jackmul_back1" style="background-color:#FFFFFF;">
+                <img class="yes" src="{% static 'img/yes.png' %}" />
+            </div>
+            <a href="{% url 'quiz:quiz_real' pk=quizSubs.pk%}"><img src="{% static 'img/next.PNG' %}" class="quiz_real_rig_next1"/></a>
+        </div>
+    </form>
+{% endblock %}

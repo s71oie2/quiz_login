@@ -22,7 +22,7 @@ class QForm(forms.ModelForm):
 
     class Meta:
         model = QnA
-        fields = ['title', 'question']
+        fields = ['title', 'question', 'lock']
 
 # 답변 폼
 class AForm(forms.ModelForm):
