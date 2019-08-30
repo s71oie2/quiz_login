@@ -8,9 +8,10 @@ from django.core.files.images import get_image_dimensions
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = get_user_model()
-        fields = ('email', 'name', 'phone', 'address',
-                  # 'profile'
-                  )
+        fields = [
+                # 8.19 소이 - 변경
+                'email', 'name', 'postcode', 'address', 'detail_address', 'ref_address', 'phone',
+        ]
 
     # def clean_profile(self):
     #     profile = self.cleaned_data['profile']
@@ -51,3 +52,11 @@ class LoginForm(AuthenticationForm):
 # 재발송 이메일
 class VerificationEmailForm(forms.Form):
     email = EmailField(widget=forms.EmailInput(attrs={'autofocus': True}), validators=(EmailField.default_validators + [RegisteredEmailValidator()]))
+
+# 190705 예림
+# 마이페이지
+class profileForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'name', 'postcode', 'address', 'detail_address', 'ref_address', 'phone', ]
+

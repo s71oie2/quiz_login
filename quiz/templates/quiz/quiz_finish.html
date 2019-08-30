@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}세바퀴{% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/quiz.css" %}{% endblock %}
+
+{% block content %}
+<div class="content">
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+        <br> <br> <br> <br>
+    <h2 class="titlename"><b>{{ quizSubs.name }}</b></h2>
+    <hr style="width: 300px;height: 4px; background-color: #99cc99;">
+    <br/><br/>
+    <div class="jackmul_back" style="background-color:#f6e8b1;"><br/>
+        <div class="pnum">
+            <div style="width:10%; height:60px; background-color: #89725b; padding-top: 15px; display:inline;float:left;">
+                <h3 style="text-align: center"><strong>{{ qnum }}번 {{ count }}/10</strong></h3>
+            </div>
+        </div>
+        <br/><br/><br/><br/><br/><br/>
+        <div class="jackmul_back1" style="background-color:#FFFFFF;">
+            <br /><br /><br /><br /><br /><br /><br /><br />
+                <h1><strong>"{% firstof user %}"님 [ {{ date }} ] {{ count }}문제 맞추셨습니다.</strong></h1><br />
+            <div class="jackmul_back2" style="background-color:#e2e2e2;">
+                <h3 style="display: table-cell; vertical-align: middle"><strong><img width="50px" src="{{ item.photo.url }}"> {{ item.name }} + {{ count }}개</strong></h3>
+            </div>
+            <br />
+            <div class="jackmul_back3" style="background-color:#89725b">
+                <form method="POST" style="padding-top: 17px">{% csrf_token %}
+                    <a href="{% url 'plant:userplant' pk=uk %}"><h3 class="gojack"><strong>작물키우기</strong></h3><img src="{% static 'img/next.PNG' %}" class="quiz_real_rig_next2"/></a>
+                </form>
+            </div>
+        </div>
+    </div><br /><br />
+</div>
+{% endblock %}

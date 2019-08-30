@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
+{% block title %}세바퀴{% endblock %}
 {% load staticfiles %}
 {% block extrastyle %}{% static "css/qna.css" %}{% endblock %}
 {% block extra_body %}
-<script src="{% static 'js/QnA.js' %}"></script>
+<script src="{% static 'js/QnA.js' %}">
+</script>
+<script src="{% static 'js/bootbox.min.js' %}"></script>
 {% endblock %}
 {% block content %}
-<div style="width: 65%; margin: 0 auto;">
+<div  class="content">
 <br/><br/><br/><br/><br /><br />
-    <h3 style="float: left;"><strong>QnA</strong></h3>
+    {# 7.13 소이. QnA를 질문사항으로 수정 #}
+    <h3 style="float: left;"><strong>질문사항</strong></h3>
     {% if user.is_active %}
     <a href="{% url 'staff:q_new' %}"><button type="button" class="btn btn-outline-success" style="float: right;">질문쓰기</button></a>
     {% else %}
-    <a  onclick="needLogin()"><button type="button" class="btn btn-outline-success" style="float: right;">질문쓰기</button></a>
+    <a onclick="needLogin()"><button type="button" class="btn btn-outline-success" style="float: right;">질문쓰기</button></a>
     {% endif %}
     <br/><br/>
     <hr class="list-hr">
@@ -19,26 +23,31 @@
     <table class="table">
         {% for qna in qnas %}
     {% if qna.lock == True %}
-        {% if qna.user == user %}
+        {% if qna.user == user %}  {# 7.13 소이. 이미지 아이콘 추가(staff_bott.PNG), 날짜 #909090으로 색상 변경, colspan 값 변경 #}
         <tr id="flip_{{ qna.id }}" style="background-color: #ffffff">
-            <td class="qt" style="text-align: left">{{ qna.title }}</td><td>{{ qna.user }}</td><td style="color: #6c6c6c;">{{ qna.date|date:"Y년 M d일" }}</td>
+            <td class="qt" style="text-align: left">{{ qna.title }}</td><td style="color: #4c4c4c">{{ qna.user }}</td><td style="color: #909090;">{{ qna.date|date:"Y년 M d일" }}</td>
+            <td><img src="{% static 'img/staff_bott.PNG' %}" class="list_staff_bott"/></td>
         </tr>
         {% elif user.is_superuser %}
         <tr id="flip_{{ qna.id }}" style="background-color: #ffffff">
-            <td class="qt" style="text-align: left">{{ qna.title }}</td><td>{{ qna.user }}</td><td style="color: #6c6c6c;">{{ qna.date|date:"Y년 M d일" }}</td>
+            <td class="qt" style="text-align: left">{{ qna.title }}</td><td style="color: #4c4c4c">{{ qna.user }}</td><td style="color: #909090;">{{ qna.date|date:"Y년 M d일" }}</td>
+            <td><img src="{% static 'img/staff_bott.PNG' %}" class="list_staff_bott"/></td>
         </tr>
         {% else %}
-        <tr><td colspan="3" class="qt" style="text-align: left"><img src="{% static 'img/lock.png' %}" class="list_lock_icon"/>비공개 질문입니다.</td></tr>
+        <tr><td colspan="4" class="qt" style="text-align: left"><img src="{% static 'img/lock.png' %}" class="list_lock_icon"/>비공개 질문입니다.</td></tr>
         {% endif %}
     {% elif qna.lock == False %}
         <tr id="flip_{{ qna.id }}" style="background-color: #ffffff">
-            <td class="qt" style="text-align: left">{{ qna.title }}</td><td>{{ qna.user }}</td><td style="color: #6c6c6c;">{{ qna.date|date:"Y년 M d일" }}</td>
+            <td class="qt" style="text-align: left">{{ qna.title }}</td><td style="color: #4c4c4c">{{ qna.user }}</td><td style="color: #909090;">{{ qna.date|date:"Y년 M d일" }}</td>
+            <td><img src="{% static 'img/staff_bott.PNG' %}" class="list_staff_bott"/></td>
+
         </tr>
     {% endif %}
         {#       질문 작성자한테 보임      #}
+            {# 7.13 소이. question_content 클래스 추가 - 글씨 두께 조정 #}
         {% if qna.user == user %}
         <tr class="panel" style="display: none; background-color: #fafafa">
-            <td colspan="2">{{ qna.question|safe }}</td>
+            <td colspan="3" class="question_content">{{ qna.question|safe }}</td>
             <td style="vertical-align: middle; text-align: center;">
                 <a href="{% url 'staff:q_edit' pk=qna.pk %}"><button type="button" class="btn btn-outline-success">수정</button></a>
                 <a href="{% url 'staff:qna_remove' pk=qna.pk %}" onclick="return confirm('삭제하시겠습니까?');">
@@ -46,30 +55,30 @@
             </td>
         </tr>
         {% else %}
-            <tr class="panel" style="display: none; background-color: #fafafa">
-            <td colspan="3">{{ qna.question|safe }}</td>
+            <tr class="panel question_content" style="display: none; background-color: #fafafa">
+            <td colspan="4">{{ qna.question|safe }}</td>
         </tr>
         {% endif %}
 {# ----------------------------- 답변이 없을 때 -------------------------------  #}
         {% if qna.answer == None %}
-        <tr class="apanel" style="display: none; background-color: #99cc99">
+        <tr class="apanel" style="display: none; background-color: #e5e5e5">
 {#           관리자한테만 보임   #}
             {% if user.is_superuser %}
-                <td colspan="3" class="none_a"><a href="{% url 'staff:a_edit' pk=qna.pk %}"><button type="button" class="btn btn-outline-success">답변달기</button></a></td>
+                <td colspan="4" class="none_a"><a href="{% url 'staff:a_edit' pk=qna.pk %}"><button type="button" class="btn btn-outline-success">답변달기</button></a></td>
             {% else %}
-                <td colspan="3"><p>답변이 아직 없습니다.</p></td>
+                <td colspan="4"><p>답변이 아직 없습니다.</p></td>
             {% endif %}
         </tr>
 {# ----------------------------- 답변이 있을 때 -------------------------------  #}
         {% else %}
         <tr class="apanel" style="display: none;">
-            {% if user.is_superuser %}
-            <td colspan="2">{{ qna.answer|safe }}</td>
+            {% if user.is_superuser %}  {# 7.13 소이 추가. 답변 옆에 화살표 이미지 #}
+            <td colspan="3" class="question_content"><img src="{% static 'img/answer_arrow.png' %}" class="answer_arrow"/>{{ qna.answer|safe }}</td>
             <td style="vertical-align: middle; text-align: center;">
                 <a href="{% url 'staff:a_edit' pk=qna.pk %}"><button type="button" class="btn btn-outline-success">수정</button></a>
             </td>
             {% else %}
-            <td colspan="3">{{ qna.answer|safe }}</td>
+            <td colspan="4" class="question_content"><img src="{% static 'img/answer_arrow.png' %}" class="answer_arrow"/>{{ qna.answer|safe }}</td>
             {% endif %}
         </tr>
         {% endif %}
@@ -77,6 +86,7 @@
 
     </table>
     <br/>
+
     {#6.2소이 - 페이지네이션 #}
 {% if qnas.has_other_pages %}
     <nav aria-label="Page navigation example">
@@ -120,15 +130,16 @@
 {# --------------------------------- 질문 수정 --------------------------------------- #}
 {% if qform %}
     <form style=" margin: 0 auto; width: 85%;" class="edit_form" method="POST">{% csrf_token %}
-    <button type="submit" class="btn btn-outline-success save">저장</button>
-    <br/><br/>
-        <table class="table">
+        <table class="table qt_table">
             <tbody>
+            {# 7.13 소이. 저장 버튼 위치 변경 #}
             <tr>
-                <td>제목 : {{ qform.title }}</td><td>비공개 &nbsp{{ qform.lock }}</td>
+                <td style="width: 80%; text-align: left">제목 : {{ qform.title }}</td>
+                <td style="width: 10%">비공개 &nbsp{{ qform.lock }}</td>
+                <td style="width: 10%;"><button type="submit" class="btn btn-outline-success save">저장</button></td>
             </tr>
             <tr>
-                <td colspan="2">{{ qform.question }}</td>
+                <td colspan="3">{{ qform.question }}</td>
             </tr>
             </tbody>
         </table><br/>

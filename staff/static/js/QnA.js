@@ -34,10 +34,35 @@ $(function(){
       $(this).next("tr.panel").next("tr.apanel").slideToggle("fast");
      });
 });
-// 로그인 알림창
+
+// 제목 클릭 시 해당 제목 글씨색 변경
+$(function(){
+    $("tr").on("click", function(){
+        var $parent = $(this).closest("tr");
+        $parent.siblings().css("color", "#000000");
+        $(this).css("color", "#01A252");
+    });
+});
+
+// 8.20 소이 - 알림창 디자인
 function needLogin() {
-    var con_test = confirm("로그인이 필요합니다.");
-    if(con_test){
-      location.href ='/user/login/'
+    bootbox.confirm({
+    message: "로그인이 필요합니다!",
+    buttons: {
+        confirm: {
+            label: '확인',
+            className: 'confirm_btn'
+        },
+        cancel: {
+            label: '취소',
+            className: 'confirm_btn'
+        }
+    },
+    callback: function (result) {
+        if(result){
+            location.href ='/user/login/'
+        }
     }
+});
+
 }

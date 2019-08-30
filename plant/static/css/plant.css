@@ -1,7 +1,9 @@
-h2{
+.title_name{
     margin-top: -200px;
-    color: #94b24d;
+    color: #000000;
+    text-align: center;
 }
+
 h2, p {
     text-align: center;
 }
@@ -9,29 +11,41 @@ h2, p {
     position: center;
     top: -50px;
     bottom: 0;
-    height: 770px;
+    height: 850px;
     width: 1440px;
     margin: auto;
     text-align: center;
 }
 .ddang {
-    position: relative;
-    width: 100%;
-    top: 135px;
-    bottom: 0;
+    position: absolute;
+    width: 1440px;
+    margin-left: -396px;
+    margin-top: -52px;
+    z-index: 1;
 }
+.item_btn { /*도구버튼*/
+    position: relative;
+    margin-top: -200px;
+    background-color: rgba( 255, 255, 255, 0 );
+    border: none;
+    z-index: 2;
+    width: 180px;
+}
+
 .jackmul {
     position: relative;
     top: 444px;
     left: 90px;
-}
-.gunghumch {
-    position: relative;
-    top: -270px;
 }
 .btn {
     vertical-align: middle;
     horiz-align: right;
     height: 60px;
     width: 120px;
+}
+.btn1 { /*수확버튼*/
+        border: 0px;
+        background-color: rgba( 255, 255, 255, 0 );
+        color: rgb(39, 174, 96);
+        padding: 5px;
 }

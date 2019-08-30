@@ -82,10 +82,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 # DATABASES = {
-#     # 'default': {
-#     #     'ENGINE': 'django.db.backends.sqlite3',
-#     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     # }
 #     'default': {
 #             'ENGINE':   'django.db.backends.mysql',
 #             'NAME':     'threewheel',                  # DB 이름
@@ -105,7 +101,7 @@ DATABASES = {
         #             'NAME': 'homework$test_threewheel',
         #         },
         'USER':     'threequizreal',                    # DB 사용자 이름
-        'PASSWORD': 'mysql1111',              # DB 비밀번호
+        'PASSWORD': '217230114',              # DB 비밀번호
         'HOST':     'threequizreal.mysql.pythonanywhere-services.com',               # DB 서버 주소
         'PORT':     '',                        # DB 포트 (생략하면 MySQL 디폴트 포트 3306 자동 지정)
         'OPTIONS':  {

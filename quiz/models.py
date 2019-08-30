@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from user.models import Item
 
-
+# 퀴즈 주제
 class QuizSub(models.Model):
     name = models.CharField('퀴즈주제', max_length=10)
     photo = models.ImageField('사진',upload_to='quiz/quizSub_img/', null=True)
@@ -14,14 +14,14 @@ class QuizSub(models.Model):
         verbose_name = '퀴즈주제'
         verbose_name_plural = '퀴즈주제'
     
-    
+# 퀴즈
 class Quiz(models.Model):
     quizSub = models.ForeignKey(QuizSub,  # QuizSub 외래키
                                 on_delete=models.CASCADE,
                                 related_name='quizSubs',
                                 verbose_name='퀴즈주제')
     content = models.TextField('퀴즈내용')
-    answer = models.CharField('답', max_length=1)  # 각 문제의 정답
+    answer = models.CharField('답', choices=(("O", "O"), ("X", "X"), ("N", "N")), max_length=1, null=True)  # 각 문제의 정답
     
     def __str__(self):
         return self.content
@@ -36,7 +36,8 @@ class Quiz(models.Model):
     class Meta:
         verbose_name = '퀴즈'
         verbose_name_plural = '퀴즈'
-    
+
+# 회원 선택퀴즈
 class MyQuiz(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,  # 유저 외래키
                              on_delete=models.CASCADE,

@@ -5,6 +5,7 @@ from django.utils import timezone
 
 from user.models import User
 
+
 # 필터 기능을 위해 추가 --------------------------------------------------------------------------------
 # class MyModelManager(models.Manager):
 #     def get_queryset(self):
@@ -33,6 +34,7 @@ class Board(models.Model):  # 게시판(댓글 기능 없는 공지사항 게시
     content = models.TextField('내용')
     date = models.DateTimeField('작성일시', auto_now_add=True)
     hits = models.IntegerField('조회수', default=0)
+
     # 필터 기능을 위해 추가 --------------------------------------------------------------------------------
     # objects = MyModelManager()
 
@@ -42,6 +44,7 @@ class Board(models.Model):  # 게시판(댓글 기능 없는 공지사항 게시
         else:
             t = '(내용 없음)'
         return t
+
     short_content.short_description = '간략 내용'
 
     def get_absolute_url(self):
@@ -69,6 +72,7 @@ class Board(models.Model):  # 게시판(댓글 기능 없는 공지사항 게시
         verbose_name_plural = '관리자 게시판'
         ordering = ['-date']
 
+
 # 두번째 게시판
 class QnA(models.Model):
     user = models.ForeignKey(User, verbose_name='질문자', on_delete=models.CASCADE)
@@ -83,12 +87,14 @@ class QnA(models.Model):
         verbose_name_plural = '질문 게시판'
         ordering = ['-date']
 
-# 기부단체
+
+# 기부단체 # 7.18 소이 - 전화번호 필드 추가
 class DonationOrg(models.Model):
     name = models.CharField('기부단체명', max_length=20)
     desc = models.TextField('단체설명')
-    photo = models.ImageField('사진',upload_to='staff/donation/')
+    photo = models.ImageField('사진', upload_to='staff/donation/')
     url = models.URLField('홈페이지 주소', max_length=250)
+    phone = models.CharField('전화번호', max_length=20, blank=True, null=True)
     is_donate = models.BooleanField('이달 기부단체', default=False)
 
     def short_desc(self):
@@ -97,16 +103,29 @@ class DonationOrg(models.Model):
         else:
             t = '(내용 없음)'
         return t
+
     short_desc.short_description = '간략 단체설명'
 
     class Meta:
         verbose_name = '기부단체'
         verbose_name_plural = '기부단체'
 
+
 # 조회수
 class HitCount(models.Model):
     ip = models.CharField(max_length=15, default=None, null=True)  # ip 주소
     post = models.ForeignKey(Board, default=None, null=True, on_delete=models.CASCADE)  # 게시글
     date = models.DateField(auto_now_add=True, null=True, blank=True)  # 조회수가 올라갔던 날짜
-    
-    
+
+
+# 응모권추첨
+class Ticket(models.Model):
+    name = models.CharField('경품이름', max_length=30)
+    photo = models.ImageField(upload_to='staff/ticket', null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "응모권"
+        verbose_name = "응모권"

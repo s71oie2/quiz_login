@@ -1,0 +1,66 @@
+/* 8.12 소이 작성 */
+
+.titlename{
+    margin-top: -200px;
+    color: #000000;
+    text-align: center;
+}
+h2{
+    margin-top: -200px;
+    color: #000000;
+}
+h2, p {
+    text-align: center;
+}
+.seeds {
+    background-color: rgb(246, 232, 177);
+    height: 800px;
+    text-align: center;
+}
+.jakuml_h3 {
+    text-align: center;
+    border: 0px;
+    height: 70px;
+    background-color: rgb(183, 202, 121);
+    font-size: 23px;
+    padding: 20px;
+}
+
+button {
+    width: 40%;
+    border-radius: 10px;
+    margin: 15px;
+}
+.btn_color{
+    background-color: rgb(137, 114, 91);
+    color: snow;
+    font-size: 30px;
+}
+.btn_color2{
+    background-color: rgb(137, 114, 91);
+    color: snow;
+    font-size: 30px;
+    height: 156px;
+    width: 500px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin: 15px;
+}
+.jackmul_img {
+    height: 150px;
+    width: 150px;
+}
+.btn_hadan {
+    margin-top: 60px;
+    text-align: center;
+}
+.btn_hadan button {
+    width: 15%;
+}
+
+.mulum_icon{
+    text-align: right;
+    margin-right: 160px;
+    margin-top: -68px;
+    margin-bottom: 20px;
+}

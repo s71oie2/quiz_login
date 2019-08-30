@@ -30,8 +30,8 @@
 {#            <button class="btn btn-hero btn-lg col-10 col-lg-2 col-md-4 col-sm-5" role="button">#}
 {#                <img src="{% static 'img/giboo_emoz.png' %}" class="quiz_emo"/>&nbsp;DONATE</button>#}
         {% if user.is_active %}
-            <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="location.href='{% url 'quiz:index' %}'">QUIZ</button>
-            <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="location.href='{% url 'plant:index' %}'">GAME</button>
+            <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="location.href='{% url 'quiz:quizSubs' uk=user.pk %}'">QUIZ</button>
+            <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="location.href='{% url 'plant:userplant' pk=user.pk %}'">GAME</button>
         {% else %}
             <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="needLogin()">QUIZ</button>
             <button class="btn btn-outline-success col-8 col-sm-8 col-md-2" role="button" onclick="needLogin()">GAME</button>
@@ -58,7 +58,7 @@
             <img src="{% static 'img/main1.png' %}" class="main1"/>
             <p>잊고 있었던 상식 얻기 <br/> <b>"상식을 얻자"</b></p><br/>
         {% if user.is_active %}
-            <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'quiz:index' %}'">퀴즈</button>
+            <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'quiz:quizSubs' uk=user.pk %}'">퀴즈</button>
         {% else %}
             <button type="button" class="btn btn-outline-success" onclick="needLogin()">퀴즈</button>
         {% endif %}
@@ -68,7 +68,7 @@
             <p>작물 키우기를 통한 보상 받기<br/> <b>"씨앗을 얻자"</b></p>
                 <br/>
         {% if user.is_active %}
-            <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'plant:index' %}'">게임</button>
+            <button type="button" class="btn btn-outline-success" onclick="location.href='{% url 'plant:userplant' pk=user.pk %}'">게임</button>
         {% else %}
             <button type="button" class="btn btn-outline-success" onclick="needLogin()">게임</button>
         {% endif %}

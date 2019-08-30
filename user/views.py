@@ -1,22 +1,26 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
 # from django.views.generic.base import TemplateView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,ListView
 from django.views.generic import CreateView, FormView
-from .forms import UserRegistrationForm, VerificationEmailForm
-
+from .forms import UserRegistrationForm, VerificationEmailForm, profileForm
+from .models import User, Rank
 from django.conf import settings
 
 from django.http import HttpResponseRedirect
 
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
+from staff.models import *
+from staff.models import DonationOrg
+from plant.models import *
+from plant.models import Diary
 # -------------------------------------------------------------------------------------------------------------'
 # 비밀번호 변경
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import redirect
 
 #
 # class PasswordChangeView():
@@ -150,3 +154,24 @@ class UserEmailView(LoginView):
     def form_invalid(self, form):
         messages.error(self.request, '로그인에 실패하였습니다.', extra_tags='danger')
         return super().form_invalid(form)
+
+# 190705 예림
+# 마이페이지
+def mypage(request,pk):
+    diarys = Diary.objects.filter(user_id=pk) #190721추가 시인
+    if request.method == 'POST':
+        form = profileForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            update = form.save(commit=False)
+            update.user = request.user
+            update.save()
+            return redirect('user:mypage', pk=pk)
+    else:
+        form = profileForm(instance=request.user)
+    return render(request, 'user/mypage.html', {'form':form, 'diarys': diarys, 'pk':pk})
+
+# 등급 안내
+class Rankinfo(ListView):
+    template_name = 'user/rankinfo.html'
+    context_object_name = 'ranklist'
+    model = Rank

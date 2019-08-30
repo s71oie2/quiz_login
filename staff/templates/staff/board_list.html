@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% block extrastyle %}{% static "css/board_list.css" %}{% endblock %}
 {% block content %}
-<div style="width: 65%; margin: 0 auto;">
+<div class="content">
 <br/><br/><br/><br/><br /><br />
     <h3><strong>공지사항</strong></h3>
     <form method="post">
@@ -40,7 +40,8 @@
                 {% else %}
                     'gray'
                 {% endifchanged %}">
-            <td style="width: 15%; text-align: left">[{{ post.category }}]</td>
+            {# 7.13 소이. 카테고리명 색상 변경 #6c6c6c -> #01A252, padding값 변경, width값 변경#}
+            <td style="color: #01A252; width: 12%; text-align: left; padding-left: 20px;">[{{ post.category }}]</td>
             <td style="width: 55%; text-align: left;">
 {#                <a href="/blog/{{ post.pk }}">#}
                 <a href="{% url 'staff:board_detail' pk=post.pk %}" style="font-size:20px;">
@@ -49,16 +50,17 @@
                     {{ post.title }}
                 </a>
             </td>
+            {# 7.13 소이. 날짜, 조회수 색상 변경 #6c6c6c -> #909090 #}
             <!--<td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.user }}</td>-->
-             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none" style="color:#6c6c6c; width: 20%;">{{ post.date|date:"Y년 M d일" }}</td>
-             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none" style="text-align: right">{{ post.hits }}&nbsp;<img src="{% static 'img/eye.png' %}" class="list_eye_icon"/></td>
+             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none" style="color:#909090; width: 20%;">{{ post.date|date:"Y년 M d일" }}</td>
+             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none" style="color:#909090; text-align: right">{{ post.hits }}&nbsp;<img src="{% static 'img/eye.png' %}" class="list_eye_icon"/></td>
 {#             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.updated }}</td>#}
 {#             <td class="d-lg-table-cell d-md-table-cell d-sm-none d-none">{{ post.tagged }}</td>#}
         </tr>
        {% endfor %}
         </tbody>
     </table>
-    <hr/>
+    <br/>
 
 {# 페이지 번호 #}
     {% if is_paginated %}

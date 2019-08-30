@@ -1,6 +1,7 @@
 from django.db import models
 from user.models import *
 from django.core.validators import MaxValueValidator, MinValueValidator
+from staff.models import * #추가
 from staff.models import DonationOrg
 
 # 씨앗
@@ -8,7 +9,7 @@ class Seed(models.Model):
     name = models.CharField('씨앗명', max_length=10)
     photo = models.ImageField('사진', upload_to='seed/')
     desc = models.TextField('설명', max_length=300)
-
+    #
     def __str__(self):
         return self.name
 
@@ -34,7 +35,7 @@ class SeedState(models.Model):
     photo = models.ImageField('사진', upload_to='seedState/')
 
     def __str__(self):
-        return self.seed.name
+        return "{}-{}".format(self.seed, self.growth)
 
     class Meta:
         verbose_name_plural = "씨앗상태"
@@ -60,12 +61,14 @@ class PlantState(models.Model):
 
 # 작물일지
 class Diary(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='회원이름')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users', verbose_name='회원이름')
     seedState = models.ForeignKey(SeedState, on_delete=models.CASCADE, verbose_name='씨앗상태')
-    # plantState = models.ForeignKey(PlantState, on_delete=models.CASCADE, verbose_name='작물상태')
+    plantState = models.ForeignKey(PlantState, on_delete=models.CASCADE, verbose_name='작물상태',null=True,blank=True)
     date = models.DateTimeField('일시', auto_now_add=True)
     exp = models.IntegerField('경험치', default=0, validators=[MinValueValidator(0), MaxValueValidator(600)])
-    # donation = models.ForeignKey(DonationOrg, on_delete=models.CASCADE, verbose_name='기부단체')
+    donation = models.ForeignKey(DonationOrg, on_delete=models.CASCADE, related_name='donations', verbose_name='기부단체'
+                                 , null=True, blank=True)
+    delivery = models.CharField('배달현황', choices=(("배송 중", "배송 중"), ("배송 완료", "배송 완료")), max_length=10, null=True, blank=True)
     # 외래키의 필드 불러와서 출력
 
     def __str__(self):
@@ -74,7 +77,7 @@ class Diary(models.Model):
     class Meta:
         verbose_name_plural = "작물일지"
         verbose_name = "작물"
-
+    
 # 잡초
 class Weeds(models.Model):
     photo = models.ImageField('사진', upload_to='weeds/')

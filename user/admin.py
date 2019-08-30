@@ -14,9 +14,8 @@ class UserAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'email', 'address', 'phone',
-                       # 'profile',
-                       'rank')
+                    'fields': ('name', 'email', 'postcode', 'address', 'detail_address', 'ref_address', 'phone',
+                       'ticket', 'ticketing', 'rank')
         }),
         ('회원관리', {
             'classes': ('collapse',),

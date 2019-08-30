@@ -6,11 +6,82 @@
 {% block extrastyle %}{% static "css/plant.css" %}{% endblock %}
 
 {% block content %}
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <h1>회원작물 페이지입니다.</h1>
-    <form method="POST">{% csrf_token %}
-    {{ photo.id }}<img width="200px" src="{{ photo.photo.url }}" />
-    {{ form.exp }}<button type="submit" class="btn btn-outline-success">성장</button>
+<div class="content">
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br> <br> <br> <br>
+    <h2 class="title_name"><b>작물 게임</b></h2>
+    <hr style="width: 300px; height: 4px; background-color: #99cc99;">
+    <br/><br/>
+    <div class="jackmul_back" style="background-color:#f6e8b1;">
+        <div style="width: 90%; margin: 0 auto;">
+            {% if user_diary.exp < 500 %}
+                <div style="width:100%; height:60px; background-color: #f6e8b1;"></div>
+                <div style="display:inline; min-width:100%;">
+                    <div style="width:10%; height:60px; background-color: #89725b; padding-top: 15px; display:inline;float:left;">
+                    <h3 style="color: #FFFFFF">Lv.{{ level }}</h3>
+                    </div>
+                    {# 경험치 바 #}
+                    <div style="width:87%; height:60px; background-color: #89725b; padding-top: 15px; display:inline;float:right;">
+                        <div style="width:{{ user_exp }}%; height: 30px; background-color: #99cc99; margin-left: 10px;"></div>
+                    </div>
+                </div>
+{#            다 자랐을 때 레벨과 경험치 바 #}
+            {% else %}
+                <div style="width:100%; height:60px; background-color: #f6e8b1;"></div>
+                <div style="display:inline; min-width:100%;">
+                    <div style="width:10%; height:60px; background-color: #89725b; padding-top: 15px; display:inline;float:left;">
+{#                  나중에 문구 바꿀 것 #}
+                    <h3 style="color: #FFFFFF">완성</h3>
+                    </div>
+                    {# 경험치 바 #}
+                    <div style="width:87%; height:60px; background-color: #89725b; padding-top: 15px; display:inline;float:right;">
+{#                        <div style="width:{{ user_exp }}%; height: 30px; background-color: #99cc99; margin-left: 10px;"></div>#}
+                    </div>
+                </div>
+            {% endif %}
+            <br>
+        <div style="margin-left: 300px; margin-bottom: -50px; margin-top: 130px">
+{#            말풍선 작물 상태 #}
+            <div><img src="{% static 'img/bubble.png' %}" class="bubble"/></div>
+            <div>
+                <form method="POST">{% csrf_token %}
+                {% if user_exp == 0 and level != 1 %}
+                    <div style="margin-top: -130px; font-size: 25px;"><button type="submit" name="growth_btn"><b>성장하기➥</b></button></div>
+                {% elif user_diary.exp > 500 %}
+                    <div style="margin-top: -135px; font-size: 29px;"><button type="submit" name="harvest"><b>수확하기➥</b></button></div>
+                {% else %}
+                    {{ plantState.state }}
+                {% endif %}
+                    <p>{{ need }}</p>
+                </form>
+            </div>
+        </div>
+        <img style="margin-top: 160px" src="{{ user_seedState.photo.url }}" width="300px"/> {# 작물 사진#}
+         <div style="position: relative">
+            <div class="ddang">
+                <img src="{% static 'img/ddang.png' %}" class="ddang"/>
+            </div>
+            <br />
+{#              도구 버튼과 도구 개수#}
+                <form  method="POST">{% csrf_token %}
+                {% for item, user_items_count in items %}
+                    <button class="item_btn" type="submit" name="item{{ item.id }}"><img src="{{ item.photo.url }}" width="100px">
+                        <p style="color: #FFFFFF; font-size: 20px" >{{ user_items_count.item_count }}</p>
+                    </button>
+                {%endfor %}
+                </form>
 
-    </form>
+{#             {% for user_item in user_items %}#}
+{#        {{ user_item.item_count }}#}
+{#    {% endfor %}#}
+{#        <form method="POST">{% csrf_token %}#}
+{#        {% for item in items %}  {# item, user_items_count라고 할 경우 오류 발생  #}
+{#            <button class="item_btn" type="submit" name="item{{ item.id }}"><img src="{{ item.photo.url }}" width="100px"> <p style="color: #FFFFFF; font-size: 20px" >{{ user_items_count.item_count }}</p> </button>#}
+{#        {% endfor %}#}
+{##}
+{#        </form>#}
+         </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

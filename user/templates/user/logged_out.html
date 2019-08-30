@@ -8,7 +8,10 @@
     <br/><br/><br/><br/><br/><br/>
     <h1 class="centered">안녕히가세요!</h1>
     <p class="centered">로그아웃되었습니다.</p>
-    <p class="centered"><a href="{% url 'user:login' %}">로그인</a></p>
+    <center>
+        <button class="btn-outline-success btn" onclick="location.href='{% url 'user:login' %}'" style="width: 10%;">로그인</button>
+    </center>
+
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 </div>
 {% endblock %}

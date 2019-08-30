@@ -18,6 +18,8 @@ urlpatterns = [
     path('qna/<int:pk>/remove/', views.qna_remove, name='qna_remove'),
     path('qna/<int:pk>/q_edit/', views.q_edit, name='q_edit'),
     path('qna/<int:pk>/a_edit/', views.a_edit, name='a_edit'),
-    # 기부단체
-    path('donation/', views.DonationView.as_view(), name='donation'),
+    # 기부단체  # 7.18 소이 - 수정
+    path('donation/', views.DonationLV.as_view(), name='donation'),
+    # 응모권 # 190820 예림 수정
+    path('ticket/<int:pk>', views.ticket, name='ticket'),
 ]

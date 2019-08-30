@@ -6,20 +6,27 @@
 {% block extrastyle %}{% static "css/quiz.css" %}{% endblock %}
 
 {% block content %}
+<div class="content">
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         <br> <br> <br> <br>
-    <h2><b>퀴즈</b></h2>
+    <h2 class="titlename"><b>{{ quizSubs.name }}</b></h2>
     <hr style="width: 300px;height: 4px; background-color: #99cc99;">
     <br/><br/>
-    <form method="POST">{% csrf_token %}
-        <div class="jackmul_back" style="background-color:#f6e8b1;"><br/>
-            <div class="pnum">
-                <img class="pnum1" src="{% static 'img/bar2.PNG' %}" />
-            </div ><br /><br />
-            <div class="jackmul_back1" style="background-color:#FFFFFF;">
-                <img class="yes" src="{% static 'img/no1.png' %}" />
-            </div>
-            <a href="{% url 'quiz:quiz_real' pk=quizSubs.pk%}"><img src="{% static 'img/next.PNG' %}" class="quiz_real_rig_next1"/></a>
+
+    <div class="jackmul_back" style="background-color:#f6e8b1;"><br/>
+        <div class="pnum">
+        <div style="width:10%; height:60px; background-color: #89725b; padding-top: 15px; display:inline;float:left;">
+        <h3 style="text-align: center">{{ qnum }}번 {{ count }}/10</h3>
         </div>
-    </form>
+        </div>
+        <br /><br /><br /><br /><br /><br />
+        <div class="jackmul_back1" style="background-color:#FFFFFF;">
+            <img class="yes" src="{% static 'img/no1.png' %}" />
+        </div>
+        <form method="POST" style="background-color: transparent">{% csrf_token %}
+            <button class="qu_li_di_bt1 next" name="next" type="submit"><img src="{% static 'img/next.PNG' %}" class="quiz_real_rig_next1"/></button>
+        </form>
+    </div>
+
+</div>
 {% endblock %}

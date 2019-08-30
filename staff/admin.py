@@ -24,3 +24,8 @@ class QnAAdmin(SummernoteModelAdmin):
 class DonationOrgAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'short_desc', 'url', ]
     list_display_links = ['id', 'name', 'short_desc', ]
+
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'photo', ]
+    list_display_links = ['id', 'name', 'photo', ]

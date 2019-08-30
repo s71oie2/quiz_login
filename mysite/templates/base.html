@@ -28,8 +28,11 @@
 {#======================= base.js 수정 ============================================================================================================#}
 {% block extra_body %}
 <script src="{% static 'js/base.js' %}"></script>
+{# 8.20 소이 () #}
+<script src="{% static 'js/bootbox.min.js' %}"></script>
 {% endblock %}
 {#=====================================================================추가끝=====================================================================#}
+
 
 </head>
 
@@ -47,10 +50,10 @@
                 <ul class="navbar-nav mr-auto">
                 {% if user.is_active %}
                     <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="{% url 'quiz:quizSubs' %}">퀴즈</a>
+                        <a class="nav-link waves-effect waves-light" href="{% url 'quiz:quizSubs' uk=user.pk %}">퀴즈</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light" href="{% url 'plant:userplant' pk=user.pk%}">작물</a>
+                        <a class="nav-link waves-effect waves-light" href="{% url 'plant:userplant' pk=user.pk %}">작물</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
@@ -82,13 +85,14 @@
                      <h4 class="welcome">
                         {#  프로필 사진 <img src="{{ user.get_profile }}" width="20px" height="20px">#}
                         <strong>{% firstof user %}</strong> 님 /
-                                 <a href="{% url 'user:password_change' %}">비밀번호 변경</a> /
-                                <a href="{% url 'user:logout' %}">로그아웃</a>
+{#                          <a href="{% url 'user:password_change' %}">비밀번호 변경</a> /#}
+                            <a href="{% url 'user:mypage' pk=user.pk %}">마이페이지</a> /
+                            <a href="{% url 'user:logout' %}">로그아웃</a>
                     </h4>
                     {% else %}
                     <h4 class="welcome">
-                                <a href="{% url 'user:login' %}">로그인</a> /
-                                <a href="{% url 'user:register' %}">회원가입</a>
+                            <a href="{% url 'user:login' %}">로그인</a> /
+                            <a href="{% url 'user:register' %}">회원가입</a>
                     </h4>
                     {% endif %}
                 </span>
@@ -104,7 +108,7 @@
 	<section id="footer">
 		<div class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-            <a href="#"><h6 class="text-uppercase mb-4 font-weight-bold">scroll up</h6></a>
+            <a href="#"><h6 class="text-uppercase mb-4 font-weight-bold">SCROLL UP</h6></a>
                 <p>&nbsp;</p>
             </div>
 			<div class="row text-center text-xs-center text-sm-left text-md-center">
@@ -128,8 +132,8 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 text-white">
 					<h5>BANK INFO</h5>
 					<ul class="list-unstyled quick-links">
-						<li><i class="fa fa-angle-double-right"></i>국민은행 : 000-1111-2222</li>
-						<li><i class="fa fa-angle-double-right"></i>신한은행 : 000-3333-4444</li>
+						<li><i class="fa fa-angle-double-right"></i>카카오 뱅크 : 3333-02-3015687</li>
+						<li><i class="fa fa-angle-double-right"></i>신한은행 : 110-385-174758</li>
 						<li><i class="fa fa-angle-double-right"></i>예금주 : 주식회사 세바퀴</li>
 					</ul>
 				</div>
@@ -139,7 +143,7 @@
                     <p>&nbsp;</p>
                     <p><u><a href="http://www.hywoman.ac.kr/">Hywoman University SmartIT3</a></u> Graduation work</p>
                     <p class="h8">회사명: 주식회사 세바퀴 주소: 서울특별시 성동구 살곶이길 200
-                        </br>대표자: 217230109 김소이 217230109 김시인 217230110 장소희 217230114 신예림</p>
+                        <br/>대표자: 217230109 김소이 | 217230109 김시인 | 217230110 장소희 | 217230114 신예림</p>
 				</div>
 				</hr>
 			</div>

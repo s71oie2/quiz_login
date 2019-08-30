@@ -2,7 +2,8 @@
     font-style: normal;
     font-weight: 400;
     src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartDream/LotteMartDreamMedium.woff') format('woff'); }
-
+:focus {outline:none !important;}
+::-moz-focus-inner {border:0;}
 * { font-family: 'LotteMartDream', sans-serif; }
 body {
     font-size: 16px;
@@ -12,6 +13,43 @@ body {
     -webkit-user-select: none;
     user-select:none;
 }
+/* 8.20 confirm창 디자인 */
+.confirm_btn {
+    width: 60%;
+    background-color: #99cc99;
+}
+/* 알림창 뜨면 배경 어두워지는 거 삭제 dimmed*/
+.modal-backdrop.show {
+    opacity: 0;
+}
+
+button.confirm_btn.bootbox-cancel {
+    font-weight: bold;
+    padding: 5px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    transition: all .3s;
+}
+button.confirm_btn.bootbox-cancel:hover {
+    transition: all .3s;
+    background-color: #01A252;
+}
+
+button.confirm_btn.bootbox-accept {
+    font-weight: bold;
+    padding: 5px;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+}
+button.confirm_btn.bootbox-accept:hover {
+    transition: all .3s;
+    background-color: #01A252;
+}
+
+
+
 .navbar{
     background-color: #99cc99;
     color: white;
@@ -71,7 +109,7 @@ div#menu > li {
 
 /* LINK */
 a:link, a:visited {
-    color: #01a252;
+    color: #000000;
     text-decoration: none;
 }
 
@@ -157,9 +195,6 @@ span {color: #fff; font-size: 24px;}
 }
 
 
-
-
-
 section {
     padding: 30px 0;
 }
@@ -174,7 +209,7 @@ section .section-title {
     background: #99cc99 !important;
 }
 #footer h5{
-	padding-left: 10px;
+   padding-left: 10px;
     border-left: 3px solid #eeeeee;
     padding-bottom: 6px;
     margin-bottom: 20px;
@@ -187,46 +222,46 @@ section .section-title {
     -webkit-text-decoration-skip: objects;
 }
 #footer ul.social li{
-	padding: 3px 0;
+   padding: 3px 0;
 }
 #footer ul.social li a i {
     margin-right: 5px;
-	font-size:25px;
-	-webkit-transition: .5s all ease;
-	-moz-transition: .5s all ease;
-	transition: .5s all ease;
+   font-size:25px;
+   -webkit-transition: .5s all ease;
+   -moz-transition: .5s all ease;
+   transition: .5s all ease;
 }
 #footer ul.social li:hover a i {
-	font-size:30px;
-	margin-top:-10px;
+   font-size:30px;
+   margin-top:-10px;
 }
 #footer ul.social li a,
 #footer ul.quick-links li a{
-	color:#ffffff;
+   color:#ffffff;
 }
 #footer ul.social li a:hover{
-	color:#eeeeee;
+   color:#eeeeee;
 }
 #footer ul.quick-links li{
-	padding: 3px 0;
-	-webkit-transition: .5s all ease;
-	-moz-transition: .5s all ease;
-	transition: .5s all ease;
+   padding: 3px 0;
+   -webkit-transition: .5s all ease;
+   -moz-transition: .5s all ease;
+   transition: .5s all ease;
 }
 #footer ul.quick-links li:hover{
-	padding: 3px 0;
-	margin-left:5px;
-	font-weight:700;
+   padding: 3px 0;
+   margin-left:5px;
+   font-weight:700;
 }
 #footer ul.quick-links li a i{
-	margin-right: 5px;
+   margin-right: 5px;
 }
 #footer ul.quick-links li:hover a i {
     font-weight: 700;
 }
 
 @media (max-width:767px){
-	#footer h5 {
+   #footer h5 {
     padding-left: 0;
     border-left: transparent;
     padding-bottom: 0px;
@@ -238,4 +273,19 @@ section .section-title {
 /* summernote 이상한 팝업 없앰 */
 .note-popover.popover {
     display: none;
+}
+/**************************************************/
+/* Media Queries ( 화면 사이즈별 세부 조절 )      */
+/**************************************************/
+/* 컴화면 */
+@media screen and (min-width: 700px){
+    div.content{
+    width: 75%; margin: 0 auto;
+}
+}
+/* 폰화면 */
+@media screen and (max-width: 500px){
+    div.content{
+    width: 85%; margin: 0 auto;
+}
 }

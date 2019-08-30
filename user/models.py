@@ -6,7 +6,6 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-
 class UserManager(BaseUserManager):
     use_in_migrations = True
     
@@ -23,19 +22,19 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, password, **extra_fields)
-    
+
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        
+
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-        
+
         return self._create_user(email, password, **extra_fields)
 
-
+# 등급
 class Rank(models.Model):
     rank = models.CharField('등급', max_length=10)
     requirement = models.IntegerField('등급조건', validators=[MinValueValidator(0), MaxValueValidator(599)], default=0)
@@ -49,17 +48,19 @@ class Rank(models.Model):
         verbose_name_plural = "등급관리"
         verbose_name = "등급"
 
-
+# 회원정보
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(verbose_name='이메일', max_length=30, unique=True, blank=False)
-    name = models.CharField('이름', max_length=10, blank=True)
+    name = models.CharField('이름', max_length=10, blank=True, unique=True)
     phone = models.CharField('전화번호', max_length=13)
+    # 8.14 소이 - 배송지 주소 필드 총 4개로 확장
+    postcode = models.CharField('우편번호', max_length=15, blank=True)
     address = models.CharField('주소', max_length=30, blank=True)
-    # profile = models.ImageField('프로필 사진', upload_to='user/profile/', null=True, blank=True, default="user/profile/5조_erd.png")
+    detail_address = models.CharField('상세주소', max_length=50, blank=True)
+    ref_address = models.CharField('참고항목', max_length=10, blank=True, null=True)
     rank = models.ForeignKey(Rank, on_delete=models.CASCADE, verbose_name='등급', default=1)
     ticket = models.IntegerField('응모권', default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     ticketing = models.IntegerField('응모횟수', default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
-    
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -100,6 +101,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = "회원"
 
 
+# 도구
 class Item(models.Model):
     name = models.CharField('도구이름', max_length=20)
     photo = models.ImageField(upload_to='user/item/', null=True)
@@ -111,7 +113,7 @@ class Item(models.Model):
         verbose_name_plural = "도구"
         verbose_name = "도구"
 
-
+# 회원 소유도구
 class HaveItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name='도구')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='회원')
@@ -120,3 +122,4 @@ class HaveItem(models.Model):
     class Meta:
         verbose_name_plural = "소유도구"
         verbose_name = "소유도구"
+
